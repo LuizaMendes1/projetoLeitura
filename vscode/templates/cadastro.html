@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<h2>Cadastro</h2>
+
+<form method="POST">
+  
+    <input type="text" name="nome" placeholder="Nome completo" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="password" name="senha" placeholder="Senha" required>
+
+    <button type="submit">Cadastrar</button>
+</form>
+
+{% if mensagem %}
+<p>{{ mensagem }}</p>
+{% endif %}
+
+<a href="/login">Já tenho conta</a>
+
+</body>
+</html>

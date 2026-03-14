@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home</title>
+<link rel="stylesheet" href="/static/style.css">
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    }
+
+/* Barra superior */
+.navbar{
+    display:flex;
+    background:#ddd;
+    border-bottom:5px solid black;
+}
+
+/* Botão HOME */
+.home{
+    padding:25px 60px;
+    background:#e5e5e5;
+    border-right:5px solid black;
+    font-size:28px;
+    color:#888;
+}
+
+/* Área dos links */
+.links{
+    display:flex;
+    align-items:center;
+}
+
+/* Links */
+.links a{
+    text-decoration:none;
+    color:black;
+    padding:25px 40px;
+    font-size:20px;
+}
+
+.links a:hover{
+    background:#cfcfcf;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <div class="home">
+        HOME
+    </div>
+
+    <div class="links">
+        <a href="#">LINK 1</a>
+        <a href="#">LINK 2</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+</div>
+
+</body>
+</html>
+
+
