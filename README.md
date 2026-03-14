@@ -4,7 +4,7 @@
 pip install -r requirements.txt
 
 ## Criar banco de dados
-Importar o arquivo leitura.sql no MySQL.
+Importar o arquivo leitura.mwb no MySQL.
 
 ## Rodar o projeto
 python app.py
