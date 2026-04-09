@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Livro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cadastro_livro.css') }}">
+</head>
+<body>
+    <header class="topo">
+        <div class="logo-area">
+            <div class="logo">📚</div>
+            <h1>Minha Biblioteca</h1>
+        </div>
+
+        <nav class="menu">
+            <a href="/">Home</a>
+            <a href="/cadastro_livro">Cadastrar Livro</a>
+            <a href="/perfil">Perfil</a>
+            <a href="/logout" class="logout">Logout</a>
+        </nav>
+    </header>
+
+    <main class="conteudo">
+        <section class="cabecalho-pagina">
+            <h2>Cadastrar Livro</h2>
+            <p>Adicione um novo livro à sua lista de leitura.</p>
+        </section>
+
+        <section class="form-area">
+            <form method="POST" class="form-livro">
+                <label for="titulo">Título</label>
+                <input type="text" id="titulo" name="titulo" placeholder="Digite o título do livro" required>
+
+                <label for="autor">Autor</label>
+                <input type="text" id="autor" name="autor" placeholder="Digite o nome do autor" required>
+
+                <label for="status">Status de leitura</label>
+                <select id="status" name="status" required>
+                    <option value="">Selecione</option>
+                    <option value="Não iniciado">Não iniciado</option>
+                    <option value="Em andamento">Em andamento</option>
+                    <option value="Finalizado">Finalizado</option>
+                </select>
+
+                <label for="imagem">Link da capa</label>
+                <input type="url" id="imagem" name="imagem" placeholder="Cole o link da imagem da capa">
+
+                <label>Nota</label>
+                <div class="estrelas" id="estrelas">
+                    <span data-valor="1">☆</span>
+                    <span data-valor="2">☆</span>
+                    <span data-valor="3">☆</span>
+                    <span data-valor="4">☆</span>
+                    <span data-valor="5">☆</span>
+                </div>
+                <input type="hidden" name="estrelas" id="estrelas-input" value="0">
+
+                <label for="resenha">Resenha</label>
+                <textarea id="resenha" name="resenha" rows="6" placeholder="Escreva sua resenha ou observações sobre o livro"></textarea>
+
+                <div class="botoes">
+                    <button type="submit" class="btn-salvar">Salvar Livro</button>
+                    <a href="/" class="btn-voltar">Voltar</a>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        const estrelas = document.querySelectorAll("#estrelas span");
+        const inputEstrelas = document.getElementById("estrelas-input");
+
+        estrelas.forEach((estrela) => {
+            estrela.addEventListener("click", () => {
+                const valor = estrela.getAttribute("data-valor");
+                inputEstrelas.value = valor;
+
+                estrelas.forEach((item) => {
+                    if (item.getAttribute("data-valor") <= valor) {
+                        item.textContent = "★";
+                    } else {
+                        item.textContent = "☆";
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

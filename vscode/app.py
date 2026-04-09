@@ -80,9 +80,33 @@ def login():
 
 @app.route("/")
 def home():
-    if "usuario_id" in session:
-        return render_template("home.html", mensagem="Login realizado com sucesso!")
-    return redirect("/login")
+    if "usuario_id" not in session:
+        return redirect("/login")
+
+    busca = request.args.get("busca", "")
+    status = request.args.get("status", "")
+
+    db = conectar()
+    cursor = db.cursor(dictionary=True)
+
+    sql = "SELECT * FROM livros WHERE usuario_id = %s"
+    valores = [session["usuario_id"]]
+
+    if busca:
+        sql += " AND (titulo LIKE %s OR autor LIKE %s)"
+        termo = f"%{busca}%"
+        valores.append(termo)
+        valores.append(termo)
+
+    if status:
+        sql += " AND status = %s"
+        valores.append(status)
+
+    cursor.execute(sql, tuple(valores))
+    livros = cursor.fetchall()
+    db.close()
+
+    return render_template("home.html", livros=livros, busca=busca)
 
 # ================== LOGOUT ==================
 
@@ -94,3 +118,42 @@ def logout():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+# ================== CADASTRO LIVRO ==================
+
+@app.route("/cadastro_livro", methods=["GET", "POST"])
+def cadastro_livro():
+    if "usuario_id" not in session:
+        return redirect("/login")
+
+    if request.method == "POST":
+        titulo = request.form["titulo"]
+        autor = request.form["autor"]
+        status = request.form["status"]
+        imagem = request.form["imagem"]
+        estrelas = request.form["estrelas"]
+        resenha = request.form["resenha"]
+
+        db = conectar()
+        cursor = db.cursor()
+
+        cursor.execute("""
+            INSERT INTO livros (usuario_id, titulo, autor, status, imagem, estrelas, resenha)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
+        """, (
+            session["usuario_id"],
+            titulo,
+            autor,
+            status,
+            imagem,
+            estrelas,
+            resenha
+        ))
+
+        db.commit()
+        db.close()
+
+        return redirect("/")
+
+    return render_template("cadastro_livro.html")

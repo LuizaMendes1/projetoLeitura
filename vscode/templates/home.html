@@ -1,71 +1,94 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Home</title>
-<link rel="stylesheet" href="/static/style.css">
-
-<style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    }
-
-/* Barra superior */
-.navbar{
-    display:flex;
-    background:#ddd;
-    border-bottom:5px solid black;
-}
-
-/* Botão HOME */
-.home{
-    padding:25px 60px;
-    background:#e5e5e5;
-    border-right:5px solid black;
-    font-size:28px;
-    color:#888;
-}
-
-/* Área dos links */
-.links{
-    display:flex;
-    align-items:center;
-}
-
-/* Links */
-.links a{
-    text-decoration:none;
-    color:black;
-    padding:25px 40px;
-    font-size:20px;
-}
-
-.links a:hover{
-    background:#cfcfcf;
-}
-
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Sistema de Leitura</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 </head>
-
 <body>
+    <header class="topo">
+        <div class="logo-area">
+            <div class="logo">📚</div>
+            <h1>Minha Biblioteca</h1>
+        </div>
 
-<div class="navbar">
+        <nav class="menu">
+            <a href="/">Home</a>
+            <a href="/cadastro_livro">Cadastrar Livro</a>
+            <a href="/perfil">Perfil</a>
+            <a href="/logout" class="logout">Logout</a>
+        </nav>
+    </header>
 
-    <div class="home">
-        HOME
-    </div>
+    <main class="conteudo">
+        <section class="boas-vindas">
+            <h2>Seus livros</h2>
+            <p>Veja os livros que você tem, os que pretende ler e acompanhe seu progresso.</p>
+        </section>
 
-    <div class="links">
-        <a href="#">LINK 1</a>
-        <a href="#">LINK 2</a>
-        <a href="/logout">Logout</a>
-    </div>
+        <section class="barra-acoes">
+            <form method="GET" action="/" class="pesquisa-form">
+                <input
+                    type="text"
+                    name="busca"
+                    placeholder="Pesquisar por título ou autor"
+                    value="{{ busca if busca else '' }}"
+                >
+                <button type="submit">Pesquisar</button>
+            </form>
 
-</div>
+            <div class="filtros">
+                <a href="/" class="filtro">Todos</a>
+                <a href="/?status=Não iniciado" class="filtro">Não iniciado</a>
+                <a href="/?status=Em andamento" class="filtro">Em andamento</a>
+                <a href="/?status=Finalizado" class="filtro">Finalizado</a>
+            </div>
+        </section>
 
+        <section class="lista-livros">
+            {% if livros %}
+                {% for livro in livros %}
+                    <a href="/livro/{{ livro.id }}" class="card-livro">
+                        <div class="imagem-livro">
+                            {% if livro.imagem %}
+                                <img src="{{ livro.imagem }}" alt="Capa do livro">
+                            {% else %}
+                                <img src="{{ url_for('static', filename='img/sem-capa.png') }}" alt="Sem capa">
+                            {% endif %}
+                        </div>
+
+                        <div class="info-livro">
+                            <h3>{{ livro.titulo }}</h3>
+                            <p class="autor">{{ livro.autor }}</p>
+
+                            <span class="status
+                                {% if livro.status == 'Não iniciado' %}nao-iniciado{% endif %}
+                                {% if livro.status == 'Em andamento' %}em-andamento{% endif %}
+                                {% if livro.status == 'Finalizado' %}finalizado{% endif %}
+                            ">
+                                {{ livro.status }}
+                            </span>
+
+                            <div class="estrelas">
+                                {% for i in range(1, 6) %}
+                                    {% if i <= livro.estrelas %}
+                                        <span>★</span>
+                                    {% else %}
+                                        <span>☆</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            {% else %}
+                <div class="sem-livros">
+                    <p>Nenhum livro encontrado.</p>
+                    <a href="/cadastro_livro" class="btn-cadastrar">Cadastrar primeiro livro</a>
+                </div>
+            {% endif %}
+        </section>
+    </main>
 </body>
 </html>
-
-
