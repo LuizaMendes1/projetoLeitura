@@ -1,0 +1,151 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f1ea;
+    color: #2b2b2b;
+}
+
+/* ===== TOPO (igual home) ===== */
+
+.topo {
+    width: 100%;
+    background-color: #8b6b4a;
+    color: white;
+    padding: 18px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: white;
+    color: #8b6b4a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: white;
+    margin-left: 15px;
+    font-weight: bold;
+}
+
+.menu a:hover {
+    color: #f7d9a7;
+}
+
+/* ===== CONTAINER ===== */
+
+.container-login {
+    max-width: 420px;
+    margin: 60px auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* ===== TEXTO ===== */
+
+.titulo-login {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.subtitulo-login {
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* ===== FORM ===== */
+
+.form-login {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.form-login label {
+    font-weight: bold;
+}
+
+.form-login input {
+    padding: 12px;
+    border: 1px solid #c7b9a6;
+    border-radius: 10px;
+    outline: none;
+    font-size: 14px;
+}
+
+.form-login input:focus {
+    border-color: #8b6b4a;
+}
+
+/* ===== BOTÃO ===== */
+
+.btn-login {
+    margin-top: 10px;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background-color: #8b6b4a;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-login:hover {
+    background-color: #73573b;
+}
+
+/* ===== LINKS ===== */
+
+.link-area {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.link-area a {
+    color: #8b6b4a;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.link-area a:hover {
+    text-decoration: underline;
+}
+
+/* ===== MENSAGENS ===== */
+
+.msg-erro {
+    background-color: #ffe1e1;
+    color: #a22;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.msg-sucesso {
+    background-color: #dff3df;
+    color: #2f7a2f;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}

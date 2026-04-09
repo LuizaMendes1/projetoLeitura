@@ -1,25 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
+    <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="/static/style.css">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 </head>
+
 <body>
 
-<h2>Login</h2>
+    <!-- TOPO IGUAL AO HOME -->
+    <header class="topo">
+        <div class="logo-area">
+            <div class="logo">📚</div>
+            <h1>Minha Biblioteca</h1>
+        </div>
 
-<form method="POST">
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="password" name="senha" placeholder="Senha" required>
+        <nav class="menu">
+            <a href="/cadastro">Cadastro</a>
+        </nav>
+    </header>
 
-    <button type="submit">Entrar</button>
-</form>
+    <!-- LOGIN -->
+    <div class="container-login">
 
-{% if mensagem %}
-<p>{{ mensagem }}</p>
-{% endif %}
+        <h2 class="titulo-login">Login</h2>
+        <p class="subtitulo-login">Entre para acessar sua biblioteca</p>
 
-<a href="/cadastro">Criar conta</a>
+        {% if erro %}
+            <div class="msg-erro">{{ erro }}</div>
+        {% endif %}
+
+        {% if sucesso %}
+            <div class="msg-sucesso">{{ sucesso }}</div>
+        {% endif %}
+
+        <form method="POST" class="form-login">
+
+            <label>Email</label>
+            <input type="email" name="email" required>
+
+            <label>Senha</label>
+            <input type="password" name="senha" required>
+
+            <button type="submit" class="btn-login">Entrar</button>
+
+        </form>
+
+        <div class="link-area">
+            Não tem conta?
+            <a href="/cadastro">Cadastre-se</a>
+        </div>
+
+    </div>
 
 </body>
 </html>

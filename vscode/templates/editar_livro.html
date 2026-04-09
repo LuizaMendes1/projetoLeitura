@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Livro</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/editar_livro.css') }}">
+</head>
+
+<body>
+
+    <!-- TOPO -->
+    <header class="topo">
+        <div class="logo-area">
+            <div class="logo">📚</div>
+            <h1>Minha Biblioteca</h1>
+        </div>
+
+        <nav class="menu">
+            <a href="/">Home</a>
+            <a href="/cadastro_livro">Cadastrar Livro</a>
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+
+    <!-- CONTEÚDO -->
+    <div class="container">
+
+        <h2>Editar Livro</h2>
+
+        <form method="POST">
+
+            <!-- TÍTULO -->
+            <label>Título</label>
+            <input type="text" name="titulo" value="{{ livro.titulo }}" required>
+
+            <!-- AUTOR -->
+            <label>Autor</label>
+            <input type="text" name="autor" value="{{ livro.autor }}" required>
+
+            <!-- STATUS -->
+            <label>Status</label>
+            <select name="status" required>
+                <option value="Não iniciado" {% if livro.status == "Não iniciado" %}selected{% endif %}>Não iniciado</option>
+                <option value="Em andamento" {% if livro.status == "Em andamento" %}selected{% endif %}>Em andamento</option>
+                <option value="Finalizado" {% if livro.status == "Finalizado" %}selected{% endif %}>Finalizado</option>
+            </select>
+
+            <!-- IMAGEM -->
+            <label>Link da capa</label>
+            <input type="text" name="imagem" value="{{ livro.imagem }}">
+
+            <!-- ESTRELAS -->
+            <label>Nota</label>
+            <div class="estrelas" id="estrelas">
+                <span data-valor="1">☆</span>
+                <span data-valor="2">☆</span>
+                <span data-valor="3">☆</span>
+                <span data-valor="4">☆</span>
+                <span data-valor="5">☆</span>
+            </div>
+
+            <input type="hidden" name="estrelas" id="estrelas-input" value="{{ livro.estrelas }}">
+
+            <!-- RESENHA -->
+            <label>Resenha</label>
+            <textarea name="resenha" rows="5">{{ livro.resenha }}</textarea>
+
+            <!-- BOTÕES -->
+            <div class="botoes">
+                <button type="submit">Salvar alterações</button>
+                <a href="/" class="voltar">Voltar</a>
+            </div>
+
+        </form>
+    </div>
+
+    <!-- SCRIPT ESTRELAS -->
+    <script>
+        const estrelas = document.querySelectorAll("#estrelas span");
+        const input = document.getElementById("estrelas-input");
+
+        function atualizarEstrelas(valor) {
+            estrelas.forEach((estrela) => {
+                if (estrela.getAttribute("data-valor") <= valor) {
+                    estrela.textContent = "★";
+                } else {
+                    estrela.textContent = "☆";
+                }
+            });
+        }
+
+        // carregar valor atual do banco
+        atualizarEstrelas(input.value);
+
+        estrelas.forEach((estrela) => {
+            estrela.addEventListener("click", () => {
+                const valor = estrela.getAttribute("data-valor");
+                input.value = valor;
+                atualizarEstrelas(valor);
+            });
+        });
+    </script>
+
+</body>
+</html>

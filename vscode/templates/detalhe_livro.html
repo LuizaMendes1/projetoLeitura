@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Livro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/detalhe_livro.css') }}">
+</head>
+<body>
+    <header class="topo">
+        <div class="logo-area">
+            <div class="logo">📚</div>
+            <h1>Minha Biblioteca</h1>
+        </div>
+
+        <nav class="menu">
+            <a href="/">Home</a>
+            <a href="/cadastro_livro">Cadastrar Livro</a>
+            <a href="/logout" class="logout">Logout</a>
+        </nav>
+    </header>
+
+    <main class="conteudo-detalhe">
+        <section class="card-detalhe">
+            <div class="capa-area">
+                {% if livro.imagem %}
+                    <img src="{{ livro.imagem }}" alt="Capa do livro">
+                {% else %}
+                    <div class="sem-capa-grande">Sem capa</div>
+                {% endif %}
+            </div>
+
+            <div class="info-area">
+                <h2>{{ livro.titulo }}</h2>
+                <p class="autor">{{ livro.autor }}</p>
+
+                <p class="status-livro">
+                    <strong>Status:</strong> {{ livro.status }}
+                </p>
+
+                <div class="avaliacao">
+                    <h3>Sua nota</h3>
+
+                    <form method="POST">
+                        <div class="estrelas-clicaveis" id="estrelas">
+                            <span data-valor="1">☆</span>
+                            <span data-valor="2">☆</span>
+                            <span data-valor="3">☆</span>
+                            <span data-valor="4">☆</span>
+                            <span data-valor="5">☆</span>
+                        </div>
+
+                        <input type="hidden" name="estrelas" id="estrelas-input" value="{{ livro.estrelas or 0 }}">
+
+                        <button type="submit" class="btn-salvar-nota">Salvar nota</button>
+                    </form>
+                </div>
+
+                <div class="resenha-area">
+                    <h3>Resenha</h3>
+                    <div class="resenha-box">
+                        {% if livro.resenha %}
+                            <p style="white-space: pre-line;">{{ livro.resenha }}</p>
+                        {% else %}
+                            <p>Nenhuma resenha cadastrada.</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="acoes">
+                    <a href="/editar_livro/{{ livro.id }}" class="btn-editar">Editar livro</a>
+
+                    <form action="/excluir_livro/{{ livro.id }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este livro?')">
+                        <button type="submit" class="btn-excluir">Excluir livro</button>
+                    </form>
+
+                    <a href="/" class="btn-voltar">Voltar</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const estrelas = document.querySelectorAll("#estrelas span");
+        const inputEstrelas = document.getElementById("estrelas-input");
+        let valorAtual = parseInt(inputEstrelas.value || "0");
+
+        function pintarEstrelas(valor) {
+            estrelas.forEach((item) => {
+                const valorItem = parseInt(item.getAttribute("data-valor"));
+                item.textContent = valorItem <= valor ? "★" : "☆";
+            });
+        }
+
+        pintarEstrelas(valorAtual);
+
+        estrelas.forEach((estrela) => {
+            estrela.addEventListener("click", () => {
+                const valor = parseInt(estrela.getAttribute("data-valor"));
+                inputEstrelas.value = valor;
+                pintarEstrelas(valor);
+            });
+        });
+    </script>
+</body>
+</html>

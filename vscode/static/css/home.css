@@ -1,3 +1,5 @@
+
+
 * {
     margin: 0;
     padding: 0;
@@ -230,3 +232,10 @@ body {
     text-decoration: none;
     font-weight: bold;
 }
+
+.area-card {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
