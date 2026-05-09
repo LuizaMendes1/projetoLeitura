@@ -1,27 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Cadastro</title>
-    <link rel="stylesheet" href="/static/style.css">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cadastro.css') }}">
 </head>
+
 <body>
 
-<h2>Cadastro</h2>
+    <!-- TOPO -->
 
-<form method="POST">
-  
-    <input type="text" name="nome" placeholder="Nome completo" required>
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="password" name="senha" placeholder="Senha" required>
+    <header class="topo">
 
-    <button type="submit">Cadastrar</button>
-</form>
+        <div class="logo-area">
+            <div class="logo">📚</div>
+            <h1>Minha Biblioteca</h1>
+        </div>
 
-{% if mensagem %}
-<p>{{ mensagem }}</p>
-{% endif %}
+        <nav class="menu">
+            <a href="/login">Login</a>
+        </nav>
 
-<a href="/login">Já tenho conta</a>
+    </header>
+
+    <!-- CONTAINER -->
+
+    <main class="container-cadastro">
+
+        <div class="card-cadastro">
+
+            <h2>Criar Conta</h2>
+
+            <p class="subtitulo">
+                Cadastre-se para organizar seus livros.
+            </p>
+
+            {% if mensagem %}
+                <div class="mensagem">
+                    {{ mensagem }}
+                </div>
+            {% endif %}
+
+            <form method="POST" class="form-cadastro">
+
+                <label>Nome completo</label>
+                <input
+                    type="text"
+                    name="nome"
+                    placeholder="Digite seu nome"
+                    required
+                >
+
+                <label>Email</label>
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Digite seu email"
+                    required
+                >
+
+                <label>Senha</label>
+                <input
+                    type="password"
+                    name="senha"
+                    placeholder="Digite sua senha"
+                    required
+                >
+
+                <button type="submit">
+                    Cadastrar
+                </button>
+
+            </form>
+
+            <div class="login-link">
+                Já possui conta?
+                <a href="/login">Entrar</a>
+            </div>
+
+        </div>
+
+    </main>
 
 </body>
-</html>
+</html>>

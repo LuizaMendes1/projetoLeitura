@@ -1,0 +1,161 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f1ea;
+    color: #2b2b2b;
+}
+
+/* ===== TOPO ===== */
+
+.topo {
+    width: 100%;
+    background-color: #8b6b4a;
+    color: white;
+
+    padding: 18px 40px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo {
+    width: 48px;
+    height: 48px;
+
+    border-radius: 50%;
+    background-color: white;
+    color: #8b6b4a;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 24px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+/* ===== CONTAINER ===== */
+
+.container-cadastro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 60px 20px;
+}
+
+/* ===== CARD ===== */
+
+.card-cadastro {
+    width: 100%;
+    max-width: 420px;
+
+    background-color: white;
+
+    padding: 35px;
+
+    border-radius: 16px;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.card-cadastro h2 {
+    margin-bottom: 10px;
+}
+
+.subtitulo {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+/* ===== FORM ===== */
+
+.form-cadastro {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.form-cadastro label {
+    font-weight: bold;
+}
+
+.form-cadastro input {
+    padding: 12px;
+
+    border: 1px solid #c7b9a6;
+    border-radius: 10px;
+
+    outline: none;
+}
+
+.form-cadastro input:focus {
+    border-color: #8b6b4a;
+}
+
+/* ===== BOTÃO ===== */
+
+.form-cadastro button {
+    margin-top: 10px;
+
+    background-color: #8b6b4a;
+    color: white;
+
+    border: none;
+
+    padding: 12px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+.form-cadastro button:hover {
+    background-color: #73573b;
+}
+
+/* ===== MENSAGEM ===== */
+
+.mensagem {
+    background-color: #f3e5c8;
+    color: #8a5a00;
+
+    padding: 12px;
+
+    border-radius: 10px;
+
+    margin-bottom: 20px;
+}
+
+/* ===== LINK LOGIN ===== */
+
+.login-link {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.login-link a {
+    color: #8b6b4a;
+    font-weight: bold;
+    text-decoration: none;
+}

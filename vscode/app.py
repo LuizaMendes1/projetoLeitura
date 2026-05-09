@@ -78,11 +78,12 @@ def login():
 
 @app.route("/")
 def home():
+
     if "usuario_id" not in session:
         return redirect("/login")
 
-    busca = request.args.get("busca", "").strip()
-    status = request.args.get("status", "").strip()
+    busca = request.args.get("busca")
+    status = request.args.get("status")
 
     db = conectar()
     cursor = db.cursor(dictionary=True)
@@ -90,24 +91,38 @@ def home():
     sql = "SELECT * FROM livros WHERE usuario_id = %s"
     valores = [session["usuario_id"]]
 
+    # BUSCA POR NOME
     if busca:
+
         sql += " AND (titulo LIKE %s OR autor LIKE %s)"
+
         termo = f"%{busca}%"
+
         valores.append(termo)
         valores.append(termo)
 
-    if status:
+    # FILTRO STATUS
+    if status and status != "Todos":
+
         sql += " AND status = %s"
+
         valores.append(status)
 
+    # ORDEM
     sql += " ORDER BY id DESC"
 
     cursor.execute(sql, tuple(valores))
+
     livros = cursor.fetchall()
+
     db.close()
 
-    return render_template("home.html", livros=livros, busca=busca)
-
+    return render_template(
+        "home.html",
+        livros=livros,
+        busca=busca,
+        status=status
+    )
 
 # ================== CADASTRO DE LIVRO ==================
 
